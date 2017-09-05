@@ -1,0 +1,8 @@
+<div class="tasks-component">
+  <div class="task" *ngFor="let task of tasks">
+    <app-task [task]="task"></app-task>
+    <button (click)="editTask(task.id)">Edit</button>
+    <button (click)="removeTask(task.id)">Remove</button>
+  </div>
+  <button (click)="createTask()">Create new task</button>
+</div>

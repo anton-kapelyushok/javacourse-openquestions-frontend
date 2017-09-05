@@ -1,0 +1,15 @@
+<div class="task-component">
+  <div class="task-component-header">
+    <div class="task-component-meta">
+      <div class="id">Id: {{task.id}}</div>
+      <div class="category">Category: {{task.category}}</div>
+    </div>
+    <div class="question">Question: {{task.question}}</div>
+  </div>
+  <ul class="task-component-options">
+    <li *ngFor="let option of task.options; let i = index" [class.correct]="isCorrect(i)">
+      {{option}}
+    </li>
+  </ul>
+
+</div>

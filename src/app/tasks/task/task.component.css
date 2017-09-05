@@ -1,0 +1,17 @@
+.task-component-meta {
+  display: flex;
+}
+
+.task-component-meta .id {
+  margin-right: 20px;
+}
+
+.task-component .correct {
+  background: lightgreen;
+}
+
+.task-component-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
