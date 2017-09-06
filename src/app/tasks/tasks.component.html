@@ -1,8 +1,31 @@
 <div class="tasks-component">
-  <div class="task" *ngFor="let task of tasks">
-    <app-task [task]="task"></app-task>
-    <button (click)="editTask(task.id)">Edit</button>
-    <button (click)="removeTask(task.id)">Remove</button>
+  <button class="btn btn-success add-new-button" (click)="createTask()">Add new</button>
+  <div class="tasks-container">
+    <div class="task" *ngFor="let task of tasks">
+      <div class="card" style="width: 30rem;">
+        <div class="card-body">
+          <app-task [task]="task"></app-task>
+          <a href="#" class="card-link" (click)="editTask(task.id)">Edit</a>
+          <a href="#" class="card-link" (click)="removeTask(task.id)">Remove</a>
+        </div>
+      </div>
+    </div>
   </div>
-  <button (click)="createTask()">Create new task</button>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>One fine body&hellip;</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>

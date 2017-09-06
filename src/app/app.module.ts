@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { TaskService } from './service/task.service';
 
@@ -25,6 +26,7 @@ import { EditTaskComponent } from './tasks/edit-task/edit-task.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgbModule.forRoot(),
   ],
   providers: [ TaskService ],
   bootstrap: [AppComponent]

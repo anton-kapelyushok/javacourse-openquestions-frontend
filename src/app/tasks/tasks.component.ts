@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Task } from '../data/task';
 import { TaskService } from '../service/task.service';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-tasks',
@@ -10,6 +11,7 @@ import { TaskService } from '../service/task.service';
 })
 export class TasksComponent implements OnInit {
 
+  closeResult: string;
   public tasks: Task[] = [];
 
   public rows: Array<any> = [];
@@ -26,7 +28,8 @@ export class TasksComponent implements OnInit {
   };
 
   constructor(private taskService: TaskService,
-              private router: Router) {
+              private router: Router,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -35,6 +38,7 @@ export class TasksComponent implements OnInit {
 
   editTask(id: string) {
     this.router.navigate(['/tasks', id]);
+    return false;
   }
 
   createTask() {
@@ -44,5 +48,25 @@ export class TasksComponent implements OnInit {
   removeTask(id: string) {
     this.taskService.removeTask(id);
     this.tasks = this.tasks.filter(task => task.id !== id);
+    return false;
+  }
+
+
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 }

@@ -1,5 +1,17 @@
-<h1>Multi-choice questions</h1>
-<a routerLink="/" routerLinkActive="active">Home</a>
-<a routerLink="/exams" routerLinkActive="active">Exams</a>
-<a routerLink="/tasks" routerLinkActive="active">Tasks</a>
+<nav class="navbar-fixed-top navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/" routerLinkActive="active">Multi-choice questions</a>
+
+  <div class="navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/exams" routerLinkActive="active">Exams</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/tasks" routerLinkActive="active">Tasks</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <router-outlet></router-outlet>
+
