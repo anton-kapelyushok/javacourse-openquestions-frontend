@@ -11,38 +11,33 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TasksComponent implements OnInit {
 
+  editing = false;
+  editingTask: Task;
+  blockEditing = false;
+  blockCreating = false;
+  creating = false;
   closeResult: string;
   public tasks: Task[] = [];
 
-  public rows: Array<any> = [];
-  public columns: Array<any> = [
-    { title: 'Id', name: 'id' },
-    { title: 'Question', name: 'question' },
-    { title: '', name: '' },
-  ];
-  public config: any = {
-    paging: true,
-    sorting: {columns: this.columns},
-    filtering: {filterString: ''},
-    className: ['table-striped', 'table-bordered']
-  };
-
   constructor(private taskService: TaskService,
-              private router: Router,
-              private modalService: NgbModal) {
+              private router: Router) {
   }
 
   ngOnInit() {
-    this.taskService.getTasks(0).then((tasks) => this.tasks = tasks);
+    this.update();
+  }
+  update() {
+    return this.taskService.getTasks(0).then((tasks) => this.tasks = tasks);
   }
 
-  editTask(id: string) {
-    this.router.navigate(['/tasks', id]);
+  editTask(task: Task) {
+    this.editing = true;
+    this.editingTask = task;
     return false;
   }
 
-  createTask() {
-    this.router.navigate(['/tasks', 'create']);
+  createTask(content) {
+    this.creating = true;
   }
 
   removeTask(id: string) {
@@ -52,14 +47,6 @@ export class TasksComponent implements OnInit {
   }
 
 
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -68,5 +55,35 @@ export class TasksComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+
+  handleCreatingDismiss() {
+    this.creating = false;
+  }
+
+  handleEditingDismiss() {
+    this.editing = false;
+  }
+
+  handleEditingSave(taskToSave: Task) {
+    this.blockEditing = true;
+    return this.taskService
+      .saveTask(taskToSave)
+      .then(() => this.update())
+      .then(() => {
+        this.blockEditing = false;
+        this.editing = false;
+      });
+  }
+
+  handleCreatingSave(taskToSave: Task) {
+    console.log('here');
+    this.blockCreating = true;
+    return this.taskService.saveTask(taskToSave)
+      .then(() => this.update())
+      .then(() => {
+        this.creating = false;
+        this.blockCreating = false;
+      });
   }
 }

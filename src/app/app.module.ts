@@ -12,6 +12,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { TaskComponent } from './tasks/task/task.component';
 import { TaskFormComponent } from './tasks/task-form/task-form.component';
 import { EditTaskComponent } from './tasks/edit-task/edit-task.component';
+import { EditTaskNewComponent } from './tasks/edit-task-new/edit-task-new.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { EditTaskComponent } from './tasks/edit-task/edit-task.component';
     TaskComponent,
     TaskFormComponent,
     EditTaskComponent,
+    EditTaskNewComponent,
   ],
   imports: [
     BrowserModule,

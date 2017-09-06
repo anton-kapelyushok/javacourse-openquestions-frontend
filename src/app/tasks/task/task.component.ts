@@ -10,7 +10,7 @@ import { Task } from '../../data/task';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-  @Input() task: Task;
+  @Input() task: Task = new Task();
   constructor() {
   }
 
