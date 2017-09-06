@@ -13,6 +13,9 @@ import { TaskComponent } from './tasks/task/task.component';
 import { TaskFormComponent } from './tasks/task-form/task-form.component';
 import { EditTaskComponent } from './tasks/edit-task/edit-task.component';
 import { EditTaskNewComponent } from './tasks/edit-task-new/edit-task-new.component';
+import { ExamService } from './service/exam.service';
+import { ViewExamComponent } from './exams/view-exam/view-exam.component';
+import { ViewTaskComponent } from './tasks/view-task/view-task.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,8 @@ import { EditTaskNewComponent } from './tasks/edit-task-new/edit-task-new.compon
     TaskFormComponent,
     EditTaskComponent,
     EditTaskNewComponent,
+    ViewExamComponent,
+    ViewTaskComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,7 @@ import { EditTaskNewComponent } from './tasks/edit-task-new/edit-task-new.compon
     FormsModule,
     NgbModule.forRoot(),
   ],
-  providers: [ TaskService ],
+  providers: [ TaskService, ExamService ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

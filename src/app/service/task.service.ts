@@ -2,21 +2,21 @@ import { Injectable } from '@angular/core';
 import { Task } from '../data/Task';
 import { TASKS } from './mock-tasks';
 
-let tasks = TASKS;
 let lastTaskId = 100;
 
 @Injectable()
 export class TaskService {
+  tasks = TASKS;
   constructor() { }
   saveTask(taskToSave: Task): Promise<Task> {
     console.log('save task');
-    const existingTaskIndex = tasks.findIndex(task => task.id === taskToSave.id);
+    const existingTaskIndex = this.tasks.findIndex(task => task.id === taskToSave.id);
     if (existingTaskIndex !== -1) {
-      tasks[existingTaskIndex] = taskToSave;
+      this.tasks[existingTaskIndex] = taskToSave;
       return Promise.resolve({...taskToSave});
     } else {
       const savedTask = { ...taskToSave, id: '' + lastTaskId++ };
-      tasks.push(savedTask);
+      this.tasks.push(savedTask);
       return Promise.resolve(savedTask);
     }
   }
@@ -24,15 +24,15 @@ export class TaskService {
     let tasksToReturn: Task[];
     const startIndexInclusive = page * size;
     const endIndexExclusive = (page + 1) * size;
-    if (startIndexInclusive >= tasks.length) {
+    if (startIndexInclusive >= this.tasks.length) {
       tasksToReturn = [];
     } else {
-      tasksToReturn = tasks.slice(startIndexInclusive, endIndexExclusive);
+      tasksToReturn = this.tasks.slice(startIndexInclusive, endIndexExclusive);
     }
     return Promise.resolve(tasksToReturn);
   }
   getTask(id: string): Promise<Task> {
-    const foundTask = tasks.find((task) => task.id === id);
+    const foundTask = this.tasks.find((task) => task.id === id);
     if (foundTask) {
       return Promise.resolve(foundTask);
     } else {
@@ -40,9 +40,9 @@ export class TaskService {
     }
   }
   removeTask(id: string): Promise<any> {
-    const oldLength = tasks.length;
-    tasks = tasks.filter(task => task.id !== id);
-    if (tasks.length === oldLength) {
+    const oldLength = this.tasks.length;
+    this.tasks = this.tasks.filter(task => task.id !== id);
+    if (this.tasks.length === oldLength) {
       return Promise.reject('no task found to delete');
     }
     return Promise.resolve('success');
