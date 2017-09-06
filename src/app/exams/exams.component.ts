@@ -32,4 +32,8 @@ export class ExamsComponent implements OnInit {
     console.log('here');
     this.router.navigate(['/exams', exam.globalExamId]);
   }
+
+  createExam() {
+    this.router.navigate(['/exams', 'create']);
+  }
 }

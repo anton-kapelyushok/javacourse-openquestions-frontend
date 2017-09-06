@@ -16,6 +16,7 @@ import { EditTaskNewComponent } from './tasks/edit-task-new/edit-task-new.compon
 import { ExamService } from './service/exam.service';
 import { ViewExamComponent } from './exams/view-exam/view-exam.component';
 import { ViewTaskComponent } from './tasks/view-task/view-task.component';
+import { CreateExamComponent } from './exams/create-exam/create-exam.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ViewTaskComponent } from './tasks/view-task/view-task.component';
     EditTaskNewComponent,
     ViewExamComponent,
     ViewTaskComponent,
+    CreateExamComponent,
   ],
   imports: [
     BrowserModule,

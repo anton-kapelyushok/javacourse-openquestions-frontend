@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Exam, UnnormalizedExam } from '../data/exam';
+import { Configuration, Exam, UnnormalizedExam } from '../data/exam';
 import { EXAMS } from './mock-exams';
-import { TASKS } from './mock-tasks';
 import { TaskService } from './task.service';
 
 
 @Injectable()
 export class ExamService {
+  lastId = 100;
   exams = EXAMS;
   constructor(private taskService: TaskService) { }
-  createConfiguration() {}
+  createConfiguration(configuration: Configuration): Promise<Exam> {
+    const exam: Exam = {
+      globalExamId: ++this.lastId + '',
+      configuration,
+    };
+    this.exams = [ ...this.exams, exam ];
+    return Promise.resolve(exam);
+  }
   getExam(id): Promise<UnnormalizedExam> {
     const exam = this.exams.find(e => e.globalExamId === id);
     console.log('here');

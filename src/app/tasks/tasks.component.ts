@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Task } from '../data/task';
 import { TaskService } from '../service/task.service';
@@ -11,6 +11,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TasksComponent implements OnInit {
 
+  @Input() hasAddAction = false;
+  @Output() onAdd = new EventEmitter<Task>();
   editing = false;
   editingTask: Task;
   blockEditing = false;
@@ -85,5 +87,9 @@ export class TasksComponent implements OnInit {
         this.creating = false;
         this.blockCreating = false;
       });
+  }
+
+  addTask(task: Task) {
+    this.onAdd.emit(task);
   }
 }
