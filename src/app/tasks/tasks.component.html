@@ -6,7 +6,7 @@
           <app-task [task]="task"></app-task>
           <button *ngIf="hasAddAction" class="card-link btn btn-link" (click)="addTask(task)">Add</button>
           <button  class="card-link btn btn-link" (click)="editTask(task)">Edit</button>
-          <button  class="card-link btn btn-link" (click)="removeTask(task.id)">Remove</button>
+          <!--<button  class="card-link btn btn-link" (click)="removeTask(task.id)">Remove</button>-->
         </div>
       </div>
       <app-edit-task-new

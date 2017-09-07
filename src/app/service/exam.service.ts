@@ -2,36 +2,46 @@ import { Injectable } from '@angular/core';
 import { Configuration, Exam, UnnormalizedExam } from '../data/exam';
 import { EXAMS } from './mock-exams';
 import { TaskService } from './task.service';
+import { TeacherService } from './teacher.service';
+import { Http } from '@angular/http';
 
+import 'rxjs/add/operator/toPromise';
+
+const unnormalizedConfigurationFromServerUnnormalizedExamData = (serverEntity: any): UnnormalizedExam => {
+  return {
+    globalExamId: serverEntity.globalExamId,
+    configuration: {
+      name: serverEntity.name,
+      tasks: serverEntity.tasks,
+      examContainer: serverEntity.examContainer,
+    },
+  };
+};
 
 @Injectable()
 export class ExamService {
   lastId = 100;
   exams = EXAMS;
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService,
+              private teacherService: TeacherService,
+              private http: Http) { }
   createConfiguration(configuration: Configuration): Promise<Exam> {
-    const exam: Exam = {
-      globalExamId: ++this.lastId + '',
-      configuration,
-    };
-    this.exams = [ ...this.exams, exam ];
-    return Promise.resolve(exam);
+    return this.http.post('/api/createExam', configuration).toPromise()
+      .then(res => res.json());
   }
   getExam(id): Promise<UnnormalizedExam> {
-    const exam = this.exams.find(e => e.globalExamId === id);
-    console.log('here');
-    const unnormalizedExam: UnnormalizedExam = {
-      globalExamId: exam.globalExamId,
-      configuration: {
-        name: exam.configuration.name,
-        examContainer: exam.configuration.examContainer,
-        tasks: exam.configuration.ids && exam.configuration.ids.map(taskId => this.taskService.tasks.find(task => task.id === taskId ))
-      }
-    };
-    return Promise.resolve(unnormalizedExam);
+    return this.http.get(`/api/getNormalizedExam/${id}`).toPromise()
+      .then(res => res.json())
+      .then(json => {
+        console.log(json);
+        const unnormalizedExam = unnormalizedConfigurationFromServerUnnormalizedExamData(json);
+        console.log(unnormalizedExam);
+        return unnormalizedExam;
+      });
   }
   getExams(): Promise<Exam[]> {
-    return Promise.resolve(this.exams);
+    return this.http.get('/api/exams').toPromise()
+      .then(res => res.json()._embedded.exams);
   }
 
 }

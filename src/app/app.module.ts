@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { TaskService } from './service/task.service';
@@ -17,6 +18,7 @@ import { ExamService } from './service/exam.service';
 import { ViewExamComponent } from './exams/view-exam/view-exam.component';
 import { ViewTaskComponent } from './tasks/view-task/view-task.component';
 import { CreateExamComponent } from './exams/create-exam/create-exam.component';
+import { TeacherService } from './service/teacher.service';
 
 @NgModule({
   declarations: [
@@ -35,9 +37,10 @@ import { CreateExamComponent } from './exams/create-exam/create-exam.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpModule,
     NgbModule.forRoot(),
   ],
-  providers: [ TaskService, ExamService ],
+  providers: [ TaskService, ExamService, TeacherService ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
