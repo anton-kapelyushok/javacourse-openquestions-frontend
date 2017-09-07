@@ -7,9 +7,11 @@ import { EditTaskComponent } from './tasks/edit-task/edit-task.component';
 import { ViewExamComponent } from './exams/view-exam/view-exam.component';
 import { ViewTaskComponent } from './tasks/view-task/view-task.component';
 import { CreateExamComponent } from './exams/create-exam/create-exam.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
+  { path: '', component: LoginComponent },
   { path: 'exams',  component: ExamsComponent },
   { path: 'tasks',  component: TasksComponent },
   { path: 'exams/create', component: CreateExamComponent },

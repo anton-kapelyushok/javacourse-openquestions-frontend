@@ -19,6 +19,7 @@ import { ViewExamComponent } from './exams/view-exam/view-exam.component';
 import { ViewTaskComponent } from './tasks/view-task/view-task.component';
 import { CreateExamComponent } from './exams/create-exam/create-exam.component';
 import { TeacherService } from './service/teacher.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { TeacherService } from './service/teacher.service';
     ViewExamComponent,
     ViewTaskComponent,
     CreateExamComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

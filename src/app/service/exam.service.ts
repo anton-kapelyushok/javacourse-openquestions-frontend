@@ -18,6 +18,10 @@ const unnormalizedConfigurationFromServerUnnormalizedExamData = (serverEntity: a
   };
 };
 
+const configurationWithTeacherId = (configuration: Configuration, teacherId: string): any => {
+  return { ...configuration, ...{ teacherId: teacherId } };
+}
+
 @Injectable()
 export class ExamService {
   lastId = 100;
@@ -26,7 +30,10 @@ export class ExamService {
               private teacherService: TeacherService,
               private http: Http) { }
   createConfiguration(configuration: Configuration): Promise<Exam> {
-    return this.http.post('/api/createExam', configuration).toPromise()
+    return this.http.post(
+      '/api/createExam',
+      configurationWithTeacherId(configuration, this.teacherService.getTeacherId())
+    ).toPromise()
       .then(res => res.json());
   }
   getExam(id): Promise<UnnormalizedExam> {
